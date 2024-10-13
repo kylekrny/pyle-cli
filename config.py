@@ -6,7 +6,7 @@ questions = [
     {
         "name": "language",
         "prompt": "What programming language would you like to use?",
-        "options": [{"text": "Javascript", "value": ".jsx"}, {"text": "Javascript", "value": ".tsx"}],
+        "options": [{"text": "Javascript", "value": ".jsx"}, {"text": "Typescript", "value": ".tsx"}],
      },
     { 
         "name": "import",
@@ -33,7 +33,8 @@ questions = [
 def display_question(prompt, options):
     print(prompt)
     for i, option in enumerate(options, 1):
-        print(f"{i}. {option["text"]}")
+        option_text = option["text"]
+        print(f"{i}. {option_text}")
         
     choice = int(input("Enter the number of your choice: "))
 

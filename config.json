@@ -1,6 +1,6 @@
 {
-    "language": "Typescript",
+    "language": ".tsx",
     "import": true,
-    "component": "Arrow Functional Components",
+    "component": "arrow",
     "test": true
 }
