@@ -6,22 +6,26 @@ questions = [
     {
         "name": "language",
         "prompt": "What programming language would you like to use?",
-        "options": ["Javascript", "Typescript"]
+        "options": [{"text": "Javascript", "value": ".jsx"}, {"text": "Javascript", "value": ".tsx"}],
      },
     { 
         "name": "import",
         "prompt": "Would you like to use React 17+? (17+ does not require you to import react in each file)",
-        "options": ["Yes", "No"]
+        "options": [{"text": "Yes", "value": True}, {"text": "No", "value": False}]
      },
     {
         "name": "component",
         "prompt": "What React component style do you like?",
-        "options": ["Arrow Functional Components", "Functional Components", "Class Components"]
+        "options": [
+            {"text": "Arrow Functional Components", "value": "arrow"}, 
+            {"text": "Functional Components", "value": "functional"}, 
+            {"text": "Class Components", "value": "class"},             
+                    ]
      },
     { 
         "name": "test",
         "prompt": "Would you like to setup a .test file which each organism file?",
-        "options": ["Yes", "No"]
+        "options": [{"text": "Yes", "value": True}, {"text": "No", "value": False}]
      },
 
     ]
@@ -29,17 +33,12 @@ questions = [
 def display_question(prompt, options):
     print(prompt)
     for i, option in enumerate(options, 1):
-        print(f"{i}. {option}")
+        print(f"{i}. {option["text"]}")
         
     choice = int(input("Enter the number of your choice: "))
 
     if 1 <=choice <= len(options):
-        if options[choice - 1] == "Yes":
-            return True
-        elif options[choice - 1] == "No":
-            return False
-        else:
-            return options[choice - 1]
+            return options[choice - 1]["value"]
     else:
         print("Invalid choice please try again.")
         return display_question()    
