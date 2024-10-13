@@ -1,0 +1,6 @@
+{
+    "language": "Typescript",
+    "import": true,
+    "component": "Arrow Functional Components",
+    "test": true
+}

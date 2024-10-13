@@ -16,6 +16,28 @@ def create_file(fileName):
         file.write("const hello= 'hello';")
 
 
+def display_question(question, options):
+    print(question)
+    for i, option in enumerate(options, 1):
+        print(f"{i}. {option}")
+        
+    choice = int(input("Enter the number of your choice: "))
+
+    if 1 <=choice <= len(options):
+        return options[choice - 1]
+    else:
+        print("Invalid choice please try again.")
+        return display_question()    
 
 
-create_file("test")
+def config_menu():
+    question = "What programming language would you like to use?"
+    options = ["Javascript", "Typescript"]
+
+    return display_question(question, options)
+
+
+selected_option = config_menu()
+print(f"You selected: {selected_option}")
+
+# create_file("test")
