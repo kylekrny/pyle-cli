@@ -54,8 +54,9 @@ directories = ["atoms", "molecules", "organisms", "templates"]
 
 
 def create_starting_directories():
-     for directory in directories:
+    for directory in directories:
         Path(f"src/{directory}").mkdir(parents=True)
+    print("Folder structure setup")
 
 
 
@@ -68,4 +69,4 @@ def config_menu():
     save_config_to_json(config_data)
     create_starting_directories()
 
-# config_menu()
+config_menu()
