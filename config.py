@@ -1,6 +1,5 @@
 import json
-import os
-
+from pathlib import Path
 
 questions = [
     {
@@ -51,6 +50,15 @@ def save_config_to_json(config_data):
         json.dump(config_data, config_file, indent=4)
     print(f"Configuration saved to {filepath}")
 
+directories = ["atoms", "molecules", "organisms", "templates"]
+
+
+def create_starting_directories():
+     for directory in directories:
+        Path(f"src/{directory}").mkdir(parents=True)
+
+
+
 def config_menu():
     config_data = {}
 
@@ -58,5 +66,6 @@ def config_menu():
         config_data[question["name"]] = display_question(question["prompt"], question["options"])
     
     save_config_to_json(config_data)
+    create_starting_directories()
 
-config_menu()
+# config_menu()
