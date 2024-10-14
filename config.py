@@ -1,11 +1,13 @@
 import json
 from pathlib import Path
 
+yes_no_options = [{"text": "Yes", "value": True}, {"text": "No", "value": False}]
+
 questions = [
     {
         "name": "language",
         "prompt": "What programming language would you like to use?",
-        "options": [{"text": "Javascript", "value": "jsx"}, {"text": "Typescript", "value": "tsx"}],
+        "options": [{"text": "Javascript (jsx)", "value": "jsx"}, {"text": "Typescript (tsx)", "value": "tsx"}]
      },
     { 
         "name": "import",
@@ -24,7 +26,7 @@ questions = [
     { 
         "name": "test",
         "prompt": "Would you like to setup a .test file which each organism file?",
-        "options": [{"text": "Yes", "value": True}, {"text": "No", "value": False}]
+        "options": yes_no_options,
      },
 
     ]
@@ -50,22 +52,37 @@ def save_config_to_json(config_data):
         json.dump(config_data, config_file, indent=4)
     print(f"Configuration saved to {filepath}")
 
-directories = ["atoms", "molecules", "organisms", "templates"]
 
-
-def create_starting_directories():
+def check_for_directories():
+    directories = ["atoms", "molecules", "organisms", "templates"]
+    directories_to_create = []
     for directory in directories:
-        Path(f"src/{directory}").mkdir(parents=True)
-    print("Folder structure setup")
+        path = Path(f'src/{directory}')
+        if not path.exists():
+            directories_to_create.append(directory)
+    return directories_to_create
 
+def create_starting_directories(directories):
+    for directory in directories:
+            Path(f"src/{directory}").mkdir(parents=True)
+    print("Folder structure setup.")
+
+def handle_config_error(): 
+    error_res = display_question("Config error - start configurator?", yes_no_options)
+    if (error_res):
+        config_menu()
+    else:
+        raise ValueError("Unable to create file due to config error - please run config")
 
 def get_config():
-    with open('config.json', 'r') as file:
-        data = json.load(file)
-
-        return data
-
-
+    config_file = Path('config.json')
+    
+    if config_file.exists():
+        with open('config.json', 'r') as file:
+            data = json.load(file)
+            return data
+    else:
+        return handle_config_error()    
 
 def config_menu():
     config_data = {}
@@ -74,7 +91,9 @@ def config_menu():
         config_data[question["name"]] = display_question(question["prompt"], question["options"])
     
     save_config_to_json(config_data)
-    create_starting_directories()
+    directories = check_for_directories()
+    if directories:
+        create_starting_directories(directories)
 
 
 if __name__ == "__main__":

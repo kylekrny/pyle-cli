@@ -1,11 +1,6 @@
 from config import get_config
 
-config = get_config()
-
-
-
-
-def generate_jsx_code(file_name):
+def generate_jsx_code(config, file_name):
     import_statement = "import React from 'react';" if not config["import"] else ""
 
     component_string = ""
@@ -52,6 +47,7 @@ def generate_jsx_code(file_name):
 
 
 def create_file(directory, fileName):
+    config = get_config()
     file_string= f"src/{directory}/{fileName}.{config['language']}"
     try:
         with open(file_string, "x") as file:
