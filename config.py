@@ -70,7 +70,7 @@ def create_starting_directories(directories):
 def handle_config_error(): 
     error_res = display_question("Config error - start configurator?", yes_no_options)
     if (error_res):
-        config_menu()
+        return config_menu()
     else:
         raise ValueError("Unable to create file due to config error - please run config")
 
@@ -94,6 +94,8 @@ def config_menu():
     directories = check_for_directories()
     if directories:
         create_starting_directories(directories)
+    
+    return config_data
 
 
 if __name__ == "__main__":
