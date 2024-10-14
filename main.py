@@ -1,6 +1,6 @@
 import argparse
-import os
 import string
+from file import create_file
 
 def create_parser():
     parser = argparse.ArgumentParser(description="Pyle - React.js files generated with Python")
@@ -15,21 +15,11 @@ def create_parser():
 def parse_string(user_input):
     verify_string = any(char in string.punctuation or char.isdigit() for char in user_input)
     if not verify_string:
-        capitalized_string = user_input.title()
-        camel_case = capitalized_string.replace(" ", "")
+        capitalize_string = user_input.title()
+        camel_case = capitalize_string.replace(" ", "")
         return camel_case
     else:
-        print("File Names with special characters or numbers are not permitted.")
-
-
-
-def create_file(directory, fileName,ext):
-    file_string= f"src/{directory}/{parse_string(fileName)}.{ext}"
-    try:
-        with open(file_string, "x") as file:
-            file.write("const hello= 'hello';")
-    except:
-        print (f"{fileName} already exists in {directory} directory")
+        print("Filenames with special characters or numbers are not permitted.")
 
 
 def main():
@@ -37,13 +27,13 @@ def main():
     args = parser.parse_args()
 
     if args.atom:
-        create_file("atoms", args.atom, "tsx")
+        create_file("atoms", args.atom)
     elif args.molecule:
-        create_file("molecules", args.atom, "tsx")
+        create_file("molecules", args.atom)
     elif args.organism:
-        create_file("organisms", args.atom, "tsx")
+        create_file("organisms", args.atom)
     elif args.template:
-        create_file("templates", args.atom, "tsx")
+        create_file("templates", args.atom)
 
 # create_file("test")
 

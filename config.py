@@ -5,7 +5,7 @@ questions = [
     {
         "name": "language",
         "prompt": "What programming language would you like to use?",
-        "options": [{"text": "Javascript", "value": ".jsx"}, {"text": "Typescript", "value": ".tsx"}],
+        "options": [{"text": "Javascript", "value": "jsx"}, {"text": "Typescript", "value": "tsx"}],
      },
     { 
         "name": "import",
@@ -59,6 +59,13 @@ def create_starting_directories():
     print("Folder structure setup")
 
 
+def get_config():
+    with open('config.json', 'r') as file:
+        data = json.load(file)
+
+        return data
+
+
 
 def config_menu():
     config_data = {}
@@ -69,4 +76,7 @@ def config_menu():
     save_config_to_json(config_data)
     create_starting_directories()
 
-config_menu()
+
+if __name__ == "__main__":
+    config_menu()    
+

@@ -1,6 +1,6 @@
 {
-    "language": ".tsx",
-    "import": true,
-    "component": "arrow",
-    "test": true
+  "language": "tsx",
+  "import": true,
+  "component": "arrow",
+  "test": true
 }
