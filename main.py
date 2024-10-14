@@ -3,41 +3,38 @@ import os
 
 def create_parser():
     parser = argparse.ArgumentParser(description="Pyle - React.js files generated with Python")
-    parser.add_argument("-a", "--atom", metavar="", help="Creates an file in the atom directory")
+    parser.add_argument("-a", "--atom", metavar="atoms", help="Creates an file in the atom directory")
     parser.add_argument("-m", "--molecule", metavar="", help="Creates an file in the molecule directory")
     parser.add_argument("-o", "--organism", metavar="", help="Creates an file in the organism directory")
     parser.add_argument("-t", "--template", metavar="", help="Creates an file in the template directory")
-    parser.add_argument("-p", "--page", metavar="", help="Creates an file in the page directory")
+    
     return parser
 
-def create_file(fileName):
-    fileString= f"{fileName}.tsx"
-    with open(fileString, "x") as file:
-        file.write("const hello= 'hello';")
+
+def create_file(directory, fileName,ext):
+    file_string= f"src/{directory}/{fileName.capitalize()}.{ext}"
+    try:
+        with open(file_string, "x") as file:
+            file.write("const hello= 'hello';")
+    except:
+        print (f"{fileName} already exists in {directory} directory")
 
 
-def display_question(question, options):
-    print(question)
-    for i, option in enumerate(options, 1):
-        print(f"{i}. {option}")
-        
-    choice = int(input("Enter the number of your choice: "))
+def main():
+    parser = create_parser()
+    args = parser.parse_args()
 
-    if 1 <=choice <= len(options):
-        return options[choice - 1]
-    else:
-        print("Invalid choice please try again.")
-        return display_question()    
-
-
-def config_menu():
-    question = "What programming language would you like to use?"
-    options = ["Javascript", "Typescript"]
-
-    return display_question(question, options)
-
-
-selected_option = config_menu()
-print(f"You selected: {selected_option}")
+    if args.atom:
+        create_file("atoms", args.atom, "tsx")
+    elif args.molecule:
+        create_file("molecules", args.atom, "tsx")
+    elif args.organism:
+        create_file("organisms", args.atom, "tsx")
+    elif args.template:
+        create_file("templates", args.atom, "tsx")
 
 # create_file("test")
+
+
+if __name__ == "__main__":
+    main()
