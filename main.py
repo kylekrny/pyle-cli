@@ -1,5 +1,6 @@
 import argparse
 import os
+import string
 
 def create_parser():
     parser = argparse.ArgumentParser(description="Pyle - React.js files generated with Python")
@@ -11,8 +12,19 @@ def create_parser():
     return parser
 
 
+def parse_string(user_input):
+    verify_string = any(char in string.punctuation or char.isdigit() for char in user_input)
+    if not verify_string:
+        capitalized_string = user_input.title()
+        camel_case = capitalized_string.replace(" ", "")
+        return camel_case
+    else:
+        print("File Names with special characters or numbers are not permitted.")
+
+
+
 def create_file(directory, fileName,ext):
-    file_string= f"src/{directory}/{fileName.capitalize()}.{ext}"
+    file_string= f"src/{directory}/{parse_string(fileName)}.{ext}"
     try:
         with open(file_string, "x") as file:
             file.write("const hello= 'hello';")
